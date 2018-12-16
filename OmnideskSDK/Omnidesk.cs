@@ -40,25 +40,25 @@ namespace OmnideskSDK {
                 request.AddHeader("Content-Type", "application/json");
 
                 if (!f) {
-                    if (parameters.variables["page"]) request.AddParameter("page", parameters.Page);
-                    if (parameters.variables["limit"]) request.AddParameter("limit", parameters.Limit);
+                    if (parameters.variables["page"]) request.AddParameter("page", parameters.page);
+                    if (parameters.variables["limit"]) request.AddParameter("limit", parameters.limit);
                 } else request.AddParameter("page", page); 
-                if (parameters.variables["user_id"]) foreach (int t in parameters.UserId) request.AddParameter("user_id[]", t);
-                if (parameters.variables["user_email"]) foreach (string t in parameters.UserEmail) request.AddParameter("user_email[]", t);
-                if (parameters.variables["user_phone"]) foreach (string t in parameters.UserPhone) request.AddParameter("user_phone[]", t);
-                if (parameters.variables["subject"]) request.AddParameter("subject", parameters.Subject);
-                if (parameters.variables["staff_id"]) foreach (int t in parameters.StaffId) request.AddParameter("staff_id[]", t);
-                if (parameters.variables["group_id"]) foreach (int t in parameters.GroupId) request.AddParameter("group_id[]", t);
-                if (parameters.variables["channel"]) foreach (string t in parameters.Channel) request.AddParameter("channel[]", t);
-                if (parameters.variables["priority"]) foreach (string t in parameters.Priority) request.AddParameter("priority[]", t);
-                if (parameters.variables["filter"]) request.AddParameter("filter", parameters.Filter);
-                if (parameters.variables["status"]) foreach (string t in parameters.Status) request.AddParameter("status[]", t);
-                if (parameters.variables["labels"]) foreach (int t in parameters.Labels) request.AddParameter("labels[]", t);
-                if (parameters.variables["show_merged_cases"]) request.AddParameter("show_merged_cases", parameters.ShowMergedCases);
-                if (parameters.variables["show_active_chats"]) request.AddParameter("show_active_chats", parameters.ShowActiveChats);
-                if (parameters.variables["sort"]) request.AddParameter("sort", parameters.Sort);
-                if (parameters.variables["from_time"]) request.AddParameter("from_time", parameters.FromTime);
-                if (parameters.variables["to_time"]) request.AddParameter("to_time", parameters.ToTime);
+                if (parameters.variables["user_id"]) foreach (int t in parameters.user_id) request.AddParameter("user_id[]", t);
+                if (parameters.variables["user_email"]) foreach (string t in parameters.user_email) request.AddParameter("user_email[]", t);
+                if (parameters.variables["user_phone"]) foreach (string t in parameters.user_phone) request.AddParameter("user_phone[]", t);
+                if (parameters.variables["subject"]) request.AddParameter("subject", parameters.subject);
+                if (parameters.variables["staff_id"]) foreach (int t in parameters.staff_id) request.AddParameter("staff_id[]", t);
+                if (parameters.variables["group_id"]) foreach (int t in parameters.group_id) request.AddParameter("group_id[]", t);
+                if (parameters.variables["channel"]) foreach (string t in parameters.channel) request.AddParameter("channel[]", t);
+                if (parameters.variables["priority"]) foreach (string t in parameters.priority) request.AddParameter("priority[]", t);
+                if (parameters.variables["filter"]) request.AddParameter("filter", parameters.filter);
+                if (parameters.variables["status"]) foreach (string t in parameters.status) request.AddParameter("status[]", t);
+                if (parameters.variables["labels"]) foreach (int t in parameters.labels) request.AddParameter("labels[]", t);
+                if (parameters.variables["show_merged_cases"]) request.AddParameter("show_merged_cases", parameters.show_merged_cases);
+                if (parameters.variables["show_active_chats"]) request.AddParameter("show_active_chats", parameters.show_active_chats);
+                if (parameters.variables["sort"]) request.AddParameter("sort", parameters.sort);
+                if (parameters.variables["from_time"]) request.AddParameter("from_time", parameters.from_time);
+                if (parameters.variables["to_time"]) request.AddParameter("to_time", parameters.to_time);
 
                 var response = Connection.Execute(request);
                 var content = response.Content;
@@ -77,7 +77,7 @@ namespace OmnideskSDK {
             return cases;
         }
 
-        public List<User> GetStaff(UserParameters parameters) {
+        public List<User> GetUser(UserParameters parameters) {
             if (parameters == null) throw new ArgumentNullException(nameof(parameters));
 
             List<User> cases = new List<User>();

@@ -31,35 +31,35 @@ namespace OmnideskSDK {
             {"to_time", false }
         };
 
-        private int page { get; set; }
-        private int limit { get; set; }
-        private int[] user_id { get; set; }
-        private string[] user_email { get; set; }
-        private string[] user_phone { get; set; }
-        private string subject { get; set; }
-        private int[] staff_id { get; set; }
-        private int[] group_id { get; set; }
-        private string[] channel { get; set; }
-        private string[] priority { get; set; }
-        private string filter { get; set; }
-        private string[] status { get; set; }
-        //private string[] custom_fields { get; set; }
-        private int[] labels { get; set; }
-        private bool show_merged_cases { get; set; }
-        private bool show_active_chats { get; set; }
-        private string sort { get; set; }
-        private int from_time { get; set; }
-        private int to_time { get; set; }
+        private int _page { get; set; }
+        private int _limit { get; set; }
+        private int[] _user_id { get; set; }
+        private string[] _user_email { get; set; }
+        private string[] _user_phone { get; set; }
+        private string _subject { get; set; }
+        private int[] _staff_id { get; set; }
+        private int[] _group_id { get; set; }
+        private string[] _channel { get; set; }
+        private string[] _priority { get; set; }
+        private string _filter { get; set; }
+        private string[] _status { get; set; }
+        //private string[] _custom_fields { get; set; }
+        private int[] _labels { get; set; }
+        private bool _show_merged_cases { get; set; }
+        private bool _show_active_chats { get; set; }
+        private string _sort { get; set; }
+        private int _from_time { get; set; }
+        private int _to_time { get; set; }
 
         /// <summary>
         /// Номер страницы (положительное целое число)
         /// </summary>
-        public int Page {
-            get { return page; }
+        public int page {
+            get { return _page; }
             set {
                 variables["page"] = true;
                 if (value > 0 && value % 1 == 0)
-                    page = value;
+                    _page = value;
             }
         }
         /// <summary>
@@ -67,61 +67,61 @@ namespace OmnideskSDK {
         /// 
         /// Если нужно вернуть все обращения с запроса, то данный параметр не указываем.
         /// </summary>
-        public int Limit {
-            get { return limit; }
+        public int limit {
+            get { return _limit; }
             set {
                 variables["limit"] = true;
                 if (value >= 1 && value <= 100 && value % 1 == 0)
-                    limit = value;
+                    _limit = value;
                 else throw new OmnideskException("limit: Параметр должен быть целым цислом от 1 до 100");
             }
         }
         /// <summary>
         /// ID пользователя (выборка всех обращений конкретного пользователя)
         /// </summary>
-        public int[] UserId {
-            get { return user_id; }
+        public int[] user_id {
+            get { return _user_id; }
             set {
                 variables["user_id"] = true;
-                user_id = value;
+                _user_id = value;
             }
         }
         /// <summary>
         /// Поиск обращений по email-адресу пользователя (не менее 4-х символов)
         /// </summary>
-        public string[] UserEmail {
-            get { return user_email; }
+        public string[] user_email {
+            get { return _user_email; }
             set {
                 for (int i = 0; i < value.Length; i++)
                     if (value[i].Length < 4)
                         throw new OmnideskException("user_email: Один из email'ов имеется меньше 4 символов.");
                 variables["user_email"] = true;
-                user_email = value;
+                _user_email = value;
             }
         }
         /// <summary>
         /// Поиск обращений по номеру телефона пользователя (не менее 4-х символов)
         /// </summary>
-        public string[] UserPhone {
-            get { return user_phone; }
+        public string[] user_phone {
+            get { return _user_phone; }
             set {
                 for (int i = 0; i < value.Length; i++)
                     if (value[i].Length < 4)
                         throw new OmnideskException("user_phone: Один из номеров имеет меньше 4 символов.");
                 variables["user_phone"] = true;
-                user_phone = value;
+                _user_phone = value;
             }
         }
         /// <summary>
         /// Поиск обращений по определённой теме (не менее 4-х символов)
         /// </summary>
-        public string Subject {
-            get { return subject; }
+        public string subject {
+            get { return _subject; }
             set {
                 if (value.Length < 4)
                     throw new OmnideskException("subject: Тема имеет меньше 4 символов.");
                 variables["subject"] = true;
-                subject = value;
+                _subject = value;
             }
         }
         /// <summary>
@@ -129,71 +129,71 @@ namespace OmnideskSDK {
         ///
         /// Выставите значение 0, если хотите получить список обращений без ответственного.
         /// </summary>
-        public int[] StaffId {
-            get { return staff_id; }
+        public int[] staff_id {
+            get { return _staff_id; }
             set {
                 variables["staff_id"] = true;
-                staff_id = value;
+                _staff_id = value;
             }
         }
         /// <summary>
         /// ID группы (выборка всех обращений, в которых выбрана данная группа)
         /// </summary>
-        public int[] GroupId {
-            get { return group_id; }
+        public int[] group_id {
+            get { return _group_id; }
             set {
                 variables["group_id"] = true;
-                group_id = value;
+                _group_id = value;
             }
         }
         /// <summary>
         /// Канал обращения (возможные варианты: email, chat, twitter, facebook, idea,cch123)
         /// </summary>
-        public string[] Channel {
-            get { return channel; }
+        public string[] channel {
+            get { return _channel; }
             set {
                 for (int i = 0; i < value.Length; i++)
                     if (value[i] != "email" && value[i] != "chat" && value[i] != "twitter" &&
                         value[i] != "facebook" && value[i] != "idea" && value[i] != "cch123")
                         throw new OmnideskException("channel: " + value[i] + " - Канал введен не корректно.");
                 variables["channel"] = true;
-                channel = value;
+                _channel = value;
             }
         }
         /// <summary>
         /// Приоритет обращения (возможные варианты: low, normal, high, critical)
         /// </summary>
-        public string[] Priority {
-            get { return priority; }
+        public string[] priority {
+            get { return _priority; }
             set {
                 for (int i = 0; i < value.Length; i++)
                     if (value[i] != "low" && value[i] != "normal" && value[i] != "high" && value[i] != "critical")
                         throw new OmnideskException("priority: " + value[i] + " - Приоритет введен не корректно.");
                 variables["priority"] = true;
-                priority = value;
+                _priority = value;
             }
         }
         /// <summary>
         /// ID фильтра (выборка всех обращений, которые попадают под данный фильтр)
         /// </summary>
-        public string Filter {
-            get { return filter; }
+        public string filter {
+            get { return _filter; }
             set {
                 variables["filter"] = true;
-                filter = value;
+                _filter = value;
             }
         }
         /// <summary>
         /// Статус обращения (возможные варианты: open, waiting, closed)
         /// </summary>
-        public string[] Status {
-            get { return status; }
+        public string[] status {
+            get { return _status; }
             set {
                 for (int i = 0; i < value.Length; i++)
                     if (value[i] != "open" && value[i] != "waiting" && value[i] != "closed")
                         throw new OmnideskException("status: " + value[i] + " - Статус введен не корректно.");
                 variables["status"] = true;
-                status = value;
+                _status = value;
             }
         }
         /// <summary>
@@ -206,38 +206,38 @@ namespace OmnideskSDK {
         /// - «чекбокс» — производится поиск по наличию/отсутствию флага в зависимости от передаваемого значения;
         /// - «список» — производится поиск по ключу поиск, равному передаваемому значению.
         /// </summary>
-        //public string[] CustomFields {
-        //    get { return custom_fields; }
-        //    set { custom_fields = value; }
+        //public string[] custom_fields {
+        //    get { return _custom_fields; }
+        //    set { _custom_fields = value; }
         //}
         /// <summary>
         /// Метки обращений для фильтрации
         /// </summary>
-        public int[] Labels {
-            get { return labels; }
+        public int[] labels {
+            get { return _labels; }
             set {
                 variables["labels"] = true;
-                labels = value;
+                _labels = value;
             }
         }
         /// <summary>
         /// Отображение поглощённых обращений. По умолчанию используется значение false. Пропишите параметр со значением true, чтобы в результатах были поглощённые обращения.
         /// </summary>
-        public bool ShowMergedCases {
-            get { return show_merged_cases; }
+        public bool show_merged_cases {
+            get { return _show_merged_cases; }
             set {
                 variables["show_merged_cases"] = true;
-                show_merged_cases = value;
+                _show_merged_cases = value;
             }
         }
         /// <summary>
         /// Отображение активных чатов. По умолчанию используется значение false. Пропишите параметр со значением true, чтобы в результатах были активные чаты.
         /// </summary>
-        public bool ShowActiveChats {
-            get { return show_active_chats; }
+        public bool show_active_chats {
+            get { return _show_active_chats; }
             set {
                 variables["show_active_chats"] = true;
-                show_active_chats = value;
+                _show_active_chats = value;
             }
         }
         /// <summary>
@@ -252,8 +252,8 @@ namespace OmnideskSDK {
         /// - status_asc — по статусу обращения(открытые в начале);
         /// - status_desc — по статусу обращения(закрытые в начале).
         /// </summary>
-        public string Sort {
-            get { return sort; }
+        public string sort {
+            get { return _sort; }
             set {
                 if (value == "update_at_desc" ||
                     value == "updated_at_asc" ||
@@ -267,7 +267,7 @@ namespace OmnideskSDK {
                     value == "status_desc"
                     ) {
                     variables["sort"] = true;
-                    sort = value;
+                    _sort = value;
                 }
                 else throw new OmnideskException("sort: " + value + " - Режим сортировки введен не корректно.");
             }
@@ -275,21 +275,21 @@ namespace OmnideskSDK {
         /// <summary>
         /// Начало периода для фильтра по дате добавления обращения (строковое значение или timestamp)
         /// </summary>
-        public int FromTime {
-            get { return from_time; }
+        public int from_time {
+            get { return _from_time; }
             set {
                 variables["from_time"] = true;
-                from_time = value;
+                _from_time = value;
             }
         }
         /// <summary>
         /// Конец периода для фильтра по дате добавления обращения (строковое значение или timestamp)
         /// </summary>
-        public int ToTime {
-            get { return to_time; }
+        public int to_time {
+            get { return _to_time; }
             set {
                 variables["to_time"] = true;
-                to_time = value;
+                _to_time = value;
             }
         }
     }

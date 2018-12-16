@@ -34,7 +34,8 @@ namespace OmnideskSDK {
             get { return _page; }
             set {
                 variables["page"] = true;
-                _page = value;
+                if (value > 0 && value % 1 == 0)
+                    _page = value;
             }
         }
         /// <summary>
@@ -44,7 +45,9 @@ namespace OmnideskSDK {
             get { return _limit; }
             set {
                 variables["limit"] = true;
-                _limit = value;
+                if (value >= 1 && value <= 100 && value % 1 == 0)
+                    _limit = value;
+                else throw new OmnideskException("limit: Параметр должен быть целым цислом от 1 до 100");
             }
         }
         /// <summary>
@@ -53,6 +56,8 @@ namespace OmnideskSDK {
         public string user_email {
             get { return _user_email; }
             set {
+                if (value.Length < 3)
+                    throw new OmnideskException("user_email: Один из email'ов имеется меньше 4 символов.");
                 variables["user_email"] = true;
                 _user_email = value;
             }
@@ -63,6 +68,8 @@ namespace OmnideskSDK {
         public string user_phone {
             get { return _user_phone; }
             set {
+                if (value.Length < 3)
+                    throw new OmnideskException("user_phone: Один из номеров имеет меньше 4 символов.");
                 variables["user_phone"] = true;
                 _user_phone = value;
             }
@@ -86,13 +93,13 @@ namespace OmnideskSDK {
         /// - «чекбокс» — производится поиск по наличию/отсутствию флага в зависимости от передаваемого значения;
         /// - «список» — производится поиск по ключу поиск, равному передаваемому значению.
         /// </summary>
-        public string custom_fields {
-            get { return _custom_fields; }
-            set {
-                variables["custom_fields"] = true;
-                _custom_fields = value;
-            }
-        }
+        //public string custom_fields {
+        //    get { return _custom_fields; }
+        //    set {
+        //        variables["custom_fields"] = true;
+        //        _custom_fields = value;
+        //    }
+        //}
         /// <summary>
         /// Количество обращений пользователя. Параметр может быть true или false (по умолчанию)
         /// </summary>
