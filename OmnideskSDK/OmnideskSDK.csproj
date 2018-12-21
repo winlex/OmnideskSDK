@@ -49,6 +49,8 @@
   <ItemGroup>
     <Compile Include="Cases\Case.cs" />
     <Compile Include="Cases\CaseParameters.cs" />
+    <Compile Include="Labels\Label.cs" />
+    <Compile Include="Labels\LabelParameters.cs" />
     <Compile Include="Omnidesk.cs" />
     <Compile Include="OmnideskException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

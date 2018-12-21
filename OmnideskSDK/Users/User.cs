@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OmnideskSDK {
+namespace OmnideskSDK.Users {
     public class User {
         public int user_id { get; set; }
         public string user_full_name { get; set; }

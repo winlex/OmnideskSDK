@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OmnideskSDK.Staffs;
+using OmnideskSDK.Cases;
+using OmnideskSDK.Users;
 using RestSharp;
 using RestSharp.Authenticators;
 using System;
@@ -8,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OmnideskSDK.Labels;
 
 namespace OmnideskSDK {
     public class Omnidesk {
@@ -33,7 +36,7 @@ namespace OmnideskSDK {
             if (parameters == null) throw new ArgumentNullException(nameof(parameters));
 
             List<Case> cases = new List<Case>();
-            bool f = !parameters.variables["limit"]; //Флаг, которые отвечает за получениех всех или не всех обращений с запроса
+            bool f = !parameters.variables["limit"]; //Флаг, который отвечает за получение всех или не всех обращений с запроса
             int limit = 0, page = 1; //В Omnidesk счет начинается с 0
 
             do {
@@ -81,7 +84,7 @@ namespace OmnideskSDK {
             if (parameters == null) throw new ArgumentNullException(nameof(parameters));
 
             List<User> cases = new List<User>();
-            bool f = !parameters.variables["limit"]; //Флаг, которые отвечает за получениех всех или не всех обращений с запроса
+            bool f = !parameters.variables["limit"]; //Флаг, который отвечает за получение всех или не всех обращений с запроса
             int limit = 0, page = 1; //В Omnidesk счет начинается с 0
 
             do {
@@ -117,7 +120,7 @@ namespace OmnideskSDK {
             if (parameters == null) throw new ArgumentNullException(nameof(parameters));
 
             List<Staff> cases = new List<Staff>();
-            bool f = !parameters.variables["limit"]; //Флаг, которые отвечает за получениех всех или не всех обращений с запроса
+            bool f = !parameters.variables["limit"]; //Флаг, который отвечает за получение всех или не всех обращений с запроса
             int limit = 0, page = 1; //В Omnidesk счет начинается с 0
 
             do {
@@ -137,6 +140,37 @@ namespace OmnideskSDK {
                 foreach (JProperty t in obj.Properties()) {
                     if (t.Name == "total_count") continue;
                     var c = JsonConvert.DeserializeObject<Staff>(t.Value["staff"].ToString());
+                    cases.Add(c);
+                }
+            } while (page++ < limit / 100 + 1);
+
+            return cases;
+        }
+
+        public List<Label> getLabels(LabelParameters parameters) {
+            if (parameters == null) throw new ArgumentNullException(nameof(parameters));
+
+            List<Label> cases = new List<Label>();
+            bool f = !parameters.variables["limit"]; //Флаг, которые отвечает за получениех всех или не всех обращений с запроса
+            int limit = 0, page = 1; //В Omnidesk счет начинается с 0
+
+            do {
+                RestRequest request = new RestRequest("labels.json", Method.GET);
+                request.AddHeader("Content-Type", "application/json");
+
+                if (!f) {
+                    if (parameters.variables["page"]) request.AddParameter("page", parameters.page);
+                    if (parameters.variables["limit"]) request.AddParameter("limit", parameters.limit);
+                } else request.AddParameter("page", page);
+
+                var response = Connection.Execute(request);
+                var content = response.Content;
+
+                JObject obj = JObject.Parse(content);
+                if (f) int.TryParse(obj.GetValue("total_count").ToString(), out limit);
+                foreach (JProperty t in obj.Properties()) {
+                    if (t.Name == "total_count") continue;
+                    var c = JsonConvert.DeserializeObject<Label>(t.Value["label"].ToString());
                     cases.Add(c);
                 }
             } while (page++ < limit / 100 + 1);

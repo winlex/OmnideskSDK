@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OmnideskSDK {
+namespace OmnideskSDK.Cases {
     public class CaseParameters {
         /// <summary>
         /// Хранит информацию о переменных, которые используются
@@ -48,8 +48,8 @@ namespace OmnideskSDK {
         private bool _show_merged_cases { get; set; }
         private bool _show_active_chats { get; set; }
         private string _sort { get; set; }
-        private int _from_time { get; set; }
-        private int _to_time { get; set; }
+        private long _from_time { get; set; }
+        private long _to_time { get; set; }
 
         /// <summary>
         /// Номер страницы (положительное целое число)
@@ -275,7 +275,7 @@ namespace OmnideskSDK {
         /// <summary>
         /// Начало периода для фильтра по дате добавления обращения (строковое значение или timestamp)
         /// </summary>
-        public int from_time {
+        public long from_time {
             get { return _from_time; }
             set {
                 variables["from_time"] = true;
@@ -285,7 +285,7 @@ namespace OmnideskSDK {
         /// <summary>
         /// Конец периода для фильтра по дате добавления обращения (строковое значение или timestamp)
         /// </summary>
-        public int to_time {
+        public long to_time {
             get { return _to_time; }
             set {
                 variables["to_time"] = true;

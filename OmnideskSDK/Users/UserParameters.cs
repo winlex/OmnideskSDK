@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OmnideskSDK {
+namespace OmnideskSDK.Users {
     public class UserParameters {
         /// <summary>
         /// Хранит информацию о переменных, которые используются

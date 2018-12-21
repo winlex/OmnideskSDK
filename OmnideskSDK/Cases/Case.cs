@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OmnideskSDK {
+namespace OmnideskSDK.Cases {
     public class Case {
         public int case_id { get; set; }
         public string case_number { get; set; }
